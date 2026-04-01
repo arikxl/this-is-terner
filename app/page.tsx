@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-between p-6 bg-hbs-dark text-white selection:bg-hbs-red selection:text-white">
@@ -24,10 +26,11 @@ export default function Home() {
         </div>
 
         {/* Start Button */}
-        <button className="group relative px-12 py-4 bg-hbs-red text-white font-black text-xl rounded-full hover:scale-110 transition-transform active:scale-95 shadow-[0_0_20px_rgba(227,6,19,0.4)] overflow-hidden">
-          <span className="relative z-10">התחל משחק</span>
-          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-        </button>
+        <Link href="/game">
+          <button className="px-16 py-5 bg-hbs-red text-white font-black text-2xl rounded-full hover:scale-105 active:scale-95 transition-all shadow-[0_10px_30px_rgba(227,6,19,0.3)] hover:shadow-hbs-red/50">
+            התחל משחק
+          </button>
+        </Link>
       </section>
 
       {/* Footer */}

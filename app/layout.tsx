@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "This is Terner | התעלומה באצטדיון",
+  title: "This is Terner",
   description: "משחק מסתורין אינטראקטיבי המבוסס על ההיסטוריה והסודות של אצטדיון טרנר והפועל באר שבע.",
 };
 
