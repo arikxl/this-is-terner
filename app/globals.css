@@ -10,3 +10,7 @@
 body {
   @apply bg-hbs-dark text-white font-sans;
 }
+
+*{
+  cursor: url('https://cdn.cursors-4u.net/previews/red-umbro-e6804255-32.webp') 32 32, auto !important;
+}

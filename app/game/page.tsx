@@ -18,12 +18,15 @@ export default function PlayPage() {
     const overlayOpacity = Math.max(0, 0.98 - clicks * 0.25);
 
     return (
-        <main className="min-h-screen w-full bg-[#050505] flex items-center justify-center p-4">
+        // המעטפת תמיד בגודל המסך, ללא גלילה
+        <main className="h-screen w-full bg-[#050505] flex items-center justify-center p-0 overflow-hidden">
+
+            {/* הקונטיינר של המשחק - שומר על יחס גובה-רוחב קבוע */}
             <div
                 onClick={handleScreenClick}
-                className="relative w-7xl h-180 shadow-2xl overflow-hidden bg-black cursor-pointer group"
+                className="relative w-full max-w-7xl h-full max-h-180 aspect-video shadow-2xl overflow-hidden bg-black cursor-pointer group"
             >
-                {/* 1. תמונת הרקע (הכי נמוכה) */}
+                {/* 1. תמונת הרקע - שימוש ב-object-contain מבטיח שהיא לא תימתח לעולם */}
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="/imgs/bg11.png"
@@ -34,14 +37,13 @@ export default function PlayPage() {
                     />
                 </div>
 
-                {/* 2. מסך המחשב - עכשיו הוא ב-z-10 והוא תמיד מרונדר */}
-                {/* הוא נמצא מתחת לשכבת החושך, לכן הוא יתגלה בהדרגה */}
-                <div className="absolute inset-0 z-10">
+                {/* 2. מסך המחשב - עכשיו הוא עוקב אחרי פרופורציות הקונטיינר */}
+                <div className="absolute inset-0 z-10 pointer-events-none">
                     <ComputerScreen isOpen={true}>
                         {screenStatus === "noise" && (
                             <div className="absolute inset-0 w-full h-full">
                                 <Image
-                                    src="/imgs/noise.gif"
+                                    src="/imgs/Noise.gif"
                                     alt="רעש סטטי"
                                     fill
                                     unoptimized
@@ -52,40 +54,33 @@ export default function PlayPage() {
                     </ComputerScreen>
                 </div>
 
-                <div className="absolute top-[71.5%] left-[49.5%] -translate-x-1/2">
+                {/* 3. הקלט - נשאר במיקום היחסי המדויק שלו על הרקע */}
+                <div className=" absolute top-[71.5%] left-[49.5%] -translate-x-1/2 z-10">
                     <RetroInput
                         onConfirm={(val) => {
-                            console.log("הקוד שהוזן:", val);
                             if (val === "BILL") {
-                                alert("ACCESS GRANTED");
-                                setScreenStatus("login"); // לדוגמה, משנה את מה שרואים במסך הגדול
+                                setScreenStatus("login");
                             }
                         }}
                     />
                 </div>
 
-                {/* 3. שכבת החושך הדינמית - חייבת להיות ב-z-20 כדי להסתיר את הכל */}
+                {/* שכבות ה-Overlay והטקסט */}
                 <div
                     className="absolute inset-0 bg-black transition-opacity duration-1000 ease-in-out z-20 pointer-events-none"
                     style={{ opacity: overlayOpacity }}
                 />
 
-                {/* 4. הודעת הטקסט - z-30 (מעל החושך) */}
                 {clicks < 4 && (
                     <div
-                        className="absolute inset-0 z-30 flex items-center justify-center transition-opacity duration-500"
+                        className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none"
                         style={{ opacity: 1 - (clicks * 0.3) }}
                     >
-                        <h2 className="text-4xl font-bold text-red-600 animate-[pulse_1.5s_infinite] tracking-[0.2em] uppercase">
+                        <h2 className="text-2xl md:text-4xl font-bold text-red-600 animate-pulse tracking-[0.2em] uppercase text-center px-4">
                             נא להדליק את האור
                         </h2>
                     </div>
                 )}
-
-                {/* 5. שכבת אינטראקציה סופית - z-40 (נחשפת רק בסוף) */}
-                <div className={`absolute inset-0 z-40 transition-opacity duration-1000 ${clicks === 4 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-                    {/* כאן יבואו כפתורים או אלמנטים שיהיה אפשר ללחוץ עליהם רק כשיש אור */}
-                </div>
 
                 {/* אפקט פלאש */}
                 {clicks > 0 && clicks < 4 && (
