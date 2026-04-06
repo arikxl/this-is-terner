@@ -4,14 +4,40 @@ import { useState } from "react";
 import Image from "next/image";
 import ComputerScreen from "@/components/ComputerScreen";
 import RetroInput from "@/components/RetroInput";
+import { RIDDLES_DATA } from "@/data/riddles";
 
 export default function PlayPage() {
     const [clicks, setClicks] = useState(0);
     const [screenStatus, setScreenStatus] = useState("noise");
+    const [currentStep, setCurrentStep] = useState(0); // מתחילים בחידה הראשונה (אינדקס 0)
+    const [inputStatus, setInputStatus] = useState<"idle" | "success" | "error">("idle");
+
+
+    const currentRiddle = RIDDLES_DATA[currentStep];
+
 
     const handleScreenClick = () => {
         if (clicks < 4) {
             setClicks((prev) => prev + 1);
+        }
+    };
+
+    const handleVerify = (val: string) => {
+        // בדיקה מול התשובה הנכונה בדאטה (השוואה ב-UpperCase למניעת בעיות)
+        if (val.toUpperCase() === currentRiddle.answer.toUpperCase()) {
+            setInputStatus("success");
+
+            setTimeout(() => {
+                if (currentStep < RIDDLES_DATA.length - 1) {
+                    setCurrentStep((prev) => prev + 1); // עוברים לחידה הבאה
+                    setInputStatus("idle");
+                } else {
+                    alert("כל הכבוד! סיימת את כל החידות של טרנר!");
+                }
+            }, 2000);
+        } else {
+            setInputStatus("error");
+            setTimeout(() => setInputStatus("idle"), 3000);
         }
     };
 
@@ -55,13 +81,11 @@ export default function PlayPage() {
                 </div>
 
                 {/* 3. הקלט - נשאר במיקום היחסי המדויק שלו על הרקע */}
-                <div className=" absolute top-[71.5%] left-[49.5%] -translate-x-1/2 z-10">
+                <div className="absolute top-[72.5%] left-[49.5%] -translate-x-1/2 z-10">
                     <RetroInput
-                        onConfirm={(val) => {
-                            if (val === "BILL") {
-                                setScreenStatus("login");
-                            }
-                        }}
+                        onConfirm={handleVerify} // העבר את הפונקציה שכבר בנתה את הלוגיקה
+                        status={inputStatus}
+                        placeholder={currentRiddle.placeholder}
                     />
                 </div>
 

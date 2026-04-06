@@ -20,6 +20,7 @@ const ComputerScreen: React.FC<ComputerScreenProps> = ({ children, isOpen }) => 
                 rotate: '-1deg',
                 WebkitMaskImage: "radial-gradient(ellipse flex, black 80%, transparent 100%)",
                 maskImage: "radial-gradient(ellipse flex, black 80%, transparent 100%)",
+                borderRadius:'10px'
             }}
         >
     {/* אפקט Scanlines (קווים של מסך ישן) */ }
