@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next"
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Amatic_SC } from "next/font/google"; 
 import "./globals.css";
+
+const amatic = Amatic_SC({
+  weight: ["400", "700"],
+  subsets: ["latin"], // הערה: Google Fonts לעיתים לא מסמן 'hebrew' ב-subsets אבל הוא קיים בפונט הזה
+  variable: "--font-amatic",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +37,7 @@ export default function RootLayout({
     <html
       lang="he"
       dir="rtl"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${amatic.variable} h-full antialiased overflow-hidden`}
     >
       <Analytics />
       <body className="min-h-full bg-hbs-dark text-white selection:bg-hbs-red selection:text-white flex flex-col font-sans">

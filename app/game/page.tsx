@@ -5,6 +5,8 @@ import Image from "next/image";
 import ComputerScreen from "@/components/ComputerScreen";
 import RetroInput from "@/components/RetroInput";
 import { RIDDLES_DATA } from "@/data/riddles";
+import ImageComp from "@/components/ImageComp";
+import Clue from "@/components/Clue";
 
 export default function PlayPage() {
     const [clicks, setClicks] = useState(0);
@@ -88,6 +90,9 @@ export default function PlayPage() {
                         placeholder={currentRiddle.placeholder}
                     />
                 </div>
+
+                <ImageComp/>
+                <Clue/>
 
                 {/* שכבות ה-Overlay והטקסט */}
                 <div
