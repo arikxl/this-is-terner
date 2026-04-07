@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Heebo:wght@400;900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -6,82 +7,233 @@
   --color-hbs-silver: #C0C0C0;
 }
 
-/* כאן אפשר להוסיף Reset בסיסי אם תרצה */
 body {
   @apply bg-hbs-dark text-white font-sans;
+  margin: 0;
+  padding: 0;
 }
 
-*{
+/* Cursor מותאם */
+* {
   cursor: url('https://cdn.cursors-4u.net/previews/red-umbro-e6804255-32.webp') 32 32, auto !important;
 }
 
 
- @layer utilities {
-  @keyframes neon-pulse {
+.stadium-title-glitch,
+.glitch,
+.mission-button {
+  /* Orbitron לאנגלית ומספרים, Heebo לעברית */
+  font-family: 'Orbitron', 'Heebo', sans-serif !important;
+}
 
-    0%,
-    100% {
-      opacity: 1;
-      filter: drop-shadow(0 0 5px currentColor);
-    }
+/* --- Glitch Effect Core --- */
+.glitch {
+  position: relative;
+  color: #fff;
+  font-weight: 900;
+  z-index: 1;
+  animation: shift 2s ease-in-out infinite alternate;
+}
 
-    50% {
-      opacity: 0.8;
-      filter: drop-shadow(0 0 20px currentColor);
-    }
-  }
+.glitch:before,
+.glitch:after {
+  display: block;
+  content: attr(data-glitch);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  opacity: 0.8;
+}
 
+.glitch:before {
+  animation: glitch-anim 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  color: #e30613;
+  z-index: -1;
+}
+
+.glitch:after {
+  animation: glitch-anim 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+  color: #a3a3a3;
+  z-index: -2;
+}
+
+
+
+/* --- Utilities & Additional States --- */
+@layer utilities {
   .animate-neon {
     animation: neon-pulse 0.6s ease-in-out infinite;
   }
-} 
-
-
-
-/* מצב הצלחה - ירוק זרחני */
-.switch-success {
-  box-shadow: 0px 0px 1px #22c55e inset, 0px 0px 2px #22c55e inset, 0px 0px 10px #22c55e inset, 0px 0px 40px #22c55e, 0px 0px 100px #22c55e, 0px 0px 5px #22c55e !important;
-  border: 2px solid white !important;
-  background-color: #4ade80 !important;
 }
 
-.switch-success svg path {
-  fill: white !important;
-}
-
-.switch-success svg {
-  filter: drop-shadow(0px 0px 5px #22c55e);
-}
-
-/* מצב שגיאה - אדום זרחני */
-.switch-error {
-  box-shadow: 0px 0px 1px #ef4444 inset, 0px 0px 2px #ef4444 inset, 0px 0px 10px #ef4444 inset, 0px 0px 40px #ef4444, 0px 0px 100px #ef4444, 0px 0px 5px #ef4444 !important;
-  border: 2px solid white !important;
-  background-color: #f87171 !important;
-}
-
-.switch-error svg path {
-  fill: white !important;
-}
-
-.switch-error svg {
-  filter: drop-shadow(0px 0px 5px #ef4444);
-}
-
-/* אנימציית הבהוב למצבי קצה */
-.animate-status-blink {
-  animation: blink 0.5s ease-in-out infinite;
-}
-
-@keyframes blink {
+@keyframes neon-pulse {
 
   0%,
   100% {
     opacity: 1;
+    filter: drop-shadow(0 0 5px currentColor);
   }
 
   50% {
-    opacity: 0.7;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 20px currentColor);
   }
 }
- 
+
+
+
+
+
+/* TERNER */
+.stadium-title-glitch {
+  position: relative;
+  display: inline-block;
+  color: #E30613;
+  text-shadow: 0.05em 0 0 #FFFFFF, -0.03em -0.04em 0 #450a0a, 0.025em 0.04em 0 #E30613;
+  animation: stadium-anim 725ms infinite;
+}
+
+.stadium-title-glitch span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* השכבה העליונה של הגליץ' */
+.stadium-title-glitch span:first-child {
+  animation: stadium-anim 500ms infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+  transform: translate(-0.04em, -0.03em);
+  opacity: 0.8;
+}
+
+/* השכבה התחתונה של הגליץ' */
+.stadium-title-glitch span:last-child {
+  animation: stadium-anim 375ms infinite;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+  transform: translate(0.04em, 0.03em);
+  opacity: 0.8;
+}
+
+@keyframes stadium-anim {
+
+  0%,
+  15% {
+    text-shadow: 0.05em 0 0 #FFFFFF, -0.03em -0.04em 0 #450a0a, 0.025em 0.04em 0 #E30613;
+  }
+
+  16%,
+  49% {
+    text-shadow: -0.05em -0.025em 0 #FFFFFF, 0.025em 0.035em 0 #450a0a, -0.05em -0.05em 0 #E30613;
+  }
+
+  50%,
+  99% {
+    text-shadow: 0.05em 0.035em 0 #FFFFFF, 0.03em 0 0 #450a0a, 0 -0.04em 0 #E30613;
+  }
+
+  100% {
+    text-shadow: -0.05em 0 0 #FFFFFF, -0.025em -0.04em 0 #450a0a, -0.04em -0.025em 0 #E30613;
+  }
+}
+
+
+
+
+
+/* כפתור משימה בסגנון טרנר-סייבר */
+.mission-button {
+  --main-color: rgb(227, 6, 19);
+  --main-bg-color: rgba(227, 6, 19, 0.2);
+  --pattern-color: rgba(227, 6, 19, 0.1);
+
+  background: radial-gradient(circle, var(--main-bg-color) 0%, rgba(0, 0, 0, 0) 95%),
+    linear-gradient(var(--pattern-color) 1px, transparent 1px),
+    linear-gradient(to right, var(--pattern-color) 1px, transparent 1px);
+  background-size: cover, 10px 10px, 10px 10px;
+  border-image: radial-gradient(circle, var(--main-color) 0%, rgba(0, 0, 0, 0) 100%) 1;
+  border-width: 1px 0;
+  border-style: solid;
+  color: #fff;
+  padding: 0.6rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.mission-button:hover {
+  background-color: rgba(227, 6, 19, 0.1);
+  box-shadow: 0 0 15px rgba(227, 6, 19, 0.3);
+}
+
+.mission-button:active {
+  /* שינוי צבע קל בלחיצה לאווירה דיגיטלית */
+  filter: hue-rotate(320deg);
+  transform: scale(0.98);
+}
+
+
+
+@keyframes glitch-anim {
+  0% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-2px, 2px);
+  }
+
+  40% {
+    transform: translate(-2px, -2px);
+  }
+
+  60% {
+    transform: translate(2px, 2px);
+  }
+
+  80% {
+    transform: translate(2px, -2px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+
+@keyframes shift {
+
+  0%,
+  40%,
+  44%,
+  58%,
+  61%,
+  65%,
+  69%,
+  73%,
+  100% {
+    transform: skewX(0deg);
+  }
+
+  41% {
+    transform: skewX(5deg);
+  }
+
+  42% {
+    transform: skewX(-5deg);
+  }
+
+  59% {
+    transform: skewX(20deg) skewY(5deg);
+  }
+
+  60% {
+    transform: skewX(-20deg) skewY(-5deg);
+  }
+}

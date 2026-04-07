@@ -4,49 +4,89 @@ import Link from "next/link";
 export default function Home() {
   return (
     <DesktopOnlyGuard>
+      <main className="h-screen overflow-hidden bg-black text-white selection:bg-hbs-red relative font-sans">
+        {/* רקע רשת */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:30px_30px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-      <main className="min-h-screen flex flex-col items-center justify-between p-6 bg-hbs-dark text-white selection:bg-hbs-red selection:text-white">
+        <div className="relative h-full flex flex-col justify-between p-4 md:p-6">
 
-        {/* Header / Title */}
-        <header className="mt-12 text-center space-y-4">
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter italic text-hbs-red drop-shadow-[0_0_15px_rgba(227,6,19,0.5)]">
-            THIS IS TERNER
-          </h1>
-          <div className="h-1 w-24 bg-hbs-red mx-auto rounded-full" />
-        </header>
+          {/* Header - מינימליסטי */}
+          <header className="flex justify-between items-start">
 
-        {/* Plot & Intro Section */}
-        <section className="max-w-2xl text-center space-y-8 my-12 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-          <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm shadow-2xl">
-            <h2 className="text-2xl font-bold mb-4 border-b border-hbs-red pb-2 inline-block">התעלומה ביציע הדרומי</h2>
-            <p className="text-lg leading-relaxed text-hbs-silver text-right dir-rtl">
-              האורות בטרנר כבו מזמן, אבל משהו עדיין מהבהב בחדר הבקרה הישן.
-              שמועות אומרות שבין הקירות המבצרים של האצטדיון מסתתרים סודות שננעלו מאז עונת האליפות הראשונה.
-              יש כאלו שטוענים שהם שומעים שירים מהדהדים במסדרונות הריקים...
-              <br /><br />
-              האם תצליחו לפענח את הקודים ולחשוף את מה שהוסתר?
-            </p>
+            <div className="hidden text-left md:block text-[10px] font-mono text-gray-500 uppercase leading-tight">
+              UNIT: <span className="text-hbs-red font-bold animate-pulse">ULTRA_SOUTH</span><br />
+              SECTOR: GATE_4_SOUTH<br />
+              COORD: 31°16&apos;26.1&quot;N 34°46&apos;37.2&quot;E
+            </div>
+
+
+            <div className="border-l-4 border-hbs-red pl-4 text-left">
+              <h1 className="text-2xl md:text-5xl font-black italic tracking-tighter uppercase flex items-center gap-x-3 leading-none">
+                <span className="stadium-title-glitch" data-text="TERNER">
+                  TERNER
+                  <span aria-hidden="true">TERNER</span>
+                  <span aria-hidden="true">TERNER</span>
+                </span>
+                <span className="text-white">THIS IS</span>
+              </h1>
+            </div>
+          </header>
+
+          {/* Main Content - צמצום משמעותי של גבהים */}
+          <div className="flex-1 flex flex-col justify-center items-center w-full max-w-3xl mx-auto">
+            <div className="bg-zinc-900/40 border border-white/5 p-4 md:p-8 rounded-2xl backdrop-blur-md shadow-2xl w-full flex flex-col items-center text-center">
+
+              <div className="mb-3 px-2 py-1 border border-hbs-red/50 rounded-full text-hbs-red text-[9px] font-bold uppercase tracking-[0.2em] animate-pulse">
+                CRITICAL: SYSTEM_LOCKED //  טרנר לא מגיב
+              </div>
+
+              <div className="mb-4">
+                <h2 className="glitch text-xl md:text-3xl"
+                  data-glitch="האליפות תלויה רק בך!">
+                  האליפות תלויה רק בך!
+                </h2>
+              </div>
+
+              {/* טקסט אותנטי וקצר */}
+              <div className="text-sm md:text-base text-hbs-silver leading-relaxed dir-rtl mb-6 max-w-lg">
+                <p>
+                  משחק העונה כבר כאן, אבל אופיר הכרוז שלנו עדיין חולם.
+                  <br />
+                  האורות כבויים, המערכות נעולות והזמן אוזל.
+                  <br />
+                  המפתח לחדר הבקרה של האצטדיון בידיים שלך.
+                  <br />
+                </p>
+                <p className="text-white font-bold mt-2">
+                  הקבוצה, האוהדים וכל העיר מחכים לך
+                </p>
+              </div>
+
+              <Link href="/game" className="no-underline">
+                <button className="mission-button scale-90 md:scale-100">
+                  <span>יאללה באר שבע</span>
+                </button>
+              </Link>
+            </div>
           </div>
 
-          {/* Start Button */}
-          <Link href="/game">
-            <button className="px-16 py-5 bg-hbs-red text-white font-black text-2xl rounded-full hover:scale-105 active:scale-95 transition-all shadow-[0_10px_30px_rgba(227,6,19,0.3)] hover:shadow-hbs-red/50">
-              התחל משחק
-            </button>
-          </Link>
-        </section>
+          {/* Footer - צמוד לתחתית */}
+          <footer className="flex justify-around items-center border-t border-white/5 pt-4 text-[9px] uppercase text-gray-600">
+            <div className="flex gap-4 justify-center md:justify-start font-bold">
+              <Link href="/privacy" className="hover:text-white transition-colors">פרטיות</Link>
+              <Link href="/accessibility" className="hover:text-white transition-colors">נגישות</Link>
+              <Link href="/credits" className="hover:text-hbs-red transition-colors">קרדיטים</Link>
+            </div>
 
-        {/* Footer */}
-        <footer className="w-full max-w-5xl border-t border-white/10 pt-8 pb-4 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 gap-4">
-          <div className="flex gap-6 order-2 md:order-1">
-            <a href="#" className="hover:text-hbs-red transition-colors">הצהרת פרטיות</a>
-            <a href="#" className="hover:text-hbs-red transition-colors">נגישות</a>
-          </div>
+            <div className="text-center opacity-50 font-mono">
+              FAN PROJECT // NO PROFIT // 2K26 B7 IL
+            </div>
 
-          <div className="text-center order-1 md:order-2">
-            <p>נבנה על ידי <span className="text-hbs-red font-bold">אריק</span> בעזרת <span className="italic">החבר הדיגיטלי שלו</span></p>
-          </div>
-        </footer>
+            <div className="text-center md:text-right tracking-tighter">
+              Dev: <span className="text-gray-400">Arik Alexandrov</span>
+            </div>
+          </footer>
+        </div>
       </main>
     </DesktopOnlyGuard>
   );
